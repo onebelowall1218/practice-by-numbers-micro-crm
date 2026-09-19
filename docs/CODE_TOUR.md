@@ -81,5 +81,3 @@ One line per file: what it does and when you would touch it. Read this before op
 | `Makefile` | `make install`, `dev`, `test`, `lint`, `eval`, `seed-ai`, `build`, `docker` |
 | `Dockerfile`, `docker-compose.yml` | One image: builds the frontend, serves API and UI on :8000 |
 | `.env.example` | Every setting with a comment |
-***REMOVED_LINE***
-***REMOVED_LINE***

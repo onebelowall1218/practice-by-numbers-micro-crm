@@ -171,15 +171,12 @@ no comparable Jev price is published). Details in
 
 ```
 README.md                    this file
-***REMOVED_LINE***
-***REMOVED_LINE***
 docs/
   DECISIONS.md               product and technical decisions with alternatives
   AI_DESIGN.md               prompt, schema, guardrails, eval, the Jev judgment provider
   CODE_TOUR.md               one line per source file
-***REMOVED_LINE***
-***REMOVED_LINE***
   eval_results.md            output of the last eval run
+  judgment_benchmark.md      Jev vs LLM latency/cost benchmark
 backend/                     FastAPI app, data, scripts, tests
 frontend/                    React app
 ```
