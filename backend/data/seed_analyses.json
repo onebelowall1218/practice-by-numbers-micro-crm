@@ -1,0 +1,475 @@
+{
+  "generated_at": "2026-09-19T08:11:22",
+  "today": "2026-09-01",
+  "judgment_provider": "anthropic",
+  "generation_provider": "anthropic",
+  "model": "claude-opus-5",
+  "customers": {
+    "cust_001": {
+      "judgment": {
+        "priority": "high",
+        "needs_attention": true,
+        "waiting_on": "customer",
+        "urgency_score": 0.72,
+        "confidence": null
+      },
+      "narrative": {
+        "relationship_summary": "Northstar Dental Group moved quickly from first contact on 18 August to a demo and a three-location proposal within a week, with Sarah Mitchell (Owner) driving and Daniel Kim providing the operational detail of roughly 60 missed calls per week and voicemail after 5 PM. The proposal went out on 23 August and Sarah said she would review it with her partners early the following week. That window has now passed with no reply, and an internal note on 29 August flagged the silence. The deal is live and warm but has stalled at the decision step.",
+        "priority_reason": "The proposal sent on 23 August has had no response even though Sarah committed to reviewing it with her partners the week of 24 August.",
+        "next_action": "Email or call Sarah Mitchell to ask whether she and her partners have reviewed the three-location proposal and offer to answer questions.",
+        "suggested_follow_up_date": "2026-09-02",
+        "follow_up_rationale": "Her stated review window has already elapsed, so reach out immediately after the long holiday weekend while the demo is still fresh.",
+        "open_items": [],
+        "evidence_ids": [
+          "int_003",
+          "int_004",
+          "int_005"
+        ]
+      },
+      "signals": {
+        "days_since_last_interaction": 3,
+        "last_interaction_type": "note",
+        "last_interaction_date": "2026-08-29",
+        "last_interaction_contact": "Sarah Mitchell",
+        "days_since_first_interaction": 14,
+        "interaction_count": 5,
+        "counts_by_type": {
+          "email": 2,
+          "call": 1,
+          "meeting": 1,
+          "note": 1
+        },
+        "hints": [
+          "A note records no response from the customer.",
+          "The customer asked us for something."
+        ]
+      },
+      "latency_ms": 8985
+    },
+    "cust_002": {
+      "judgment": {
+        "priority": "high",
+        "needs_attention": true,
+        "waiting_on": "us",
+        "urgency_score": 0.62,
+        "confidence": null
+      },
+      "narrative": {
+        "relationship_summary": "Greenfield Pediatrics is a stable, satisfied customer; the earlier problem with incorrect appointment reasons in call summaries was resolved and Emily Carter confirmed the improvement in July. At the 26 August quarterly check-in, Emily asked whether SMS support is on the roadmap because patients increasingly text the office. That question has not been answered yet, so the account is waiting on us. Nothing else is outstanding.",
+        "priority_reason": "Emily Carter asked at the 26 August check-in whether SMS support is planned and has had no reply in six days.",
+        "next_action": "Email Emily Carter a clear answer on whether SMS support is on the roadmap and any expected timing.",
+        "suggested_follow_up_date": "2026-09-03",
+        "follow_up_rationale": "Her question is already six days old; replying within a couple of days keeps the check-in momentum and avoids the appearance of ignoring a product request.",
+        "open_items": [
+          "Whether SMS support for patient texting is planned and when"
+        ],
+        "evidence_ids": [
+          "int_009"
+        ]
+      },
+      "signals": {
+        "days_since_last_interaction": 6,
+        "last_interaction_type": "meeting",
+        "last_interaction_date": "2026-08-26",
+        "last_interaction_contact": "Emily Carter",
+        "days_since_first_interaction": 83,
+        "interaction_count": 4,
+        "counts_by_type": {
+          "call": 1,
+          "email": 2,
+          "meeting": 1
+        },
+        "hints": []
+      },
+      "latency_ms": 6161
+    },
+    "cust_003": {
+      "judgment": {
+        "priority": "high",
+        "needs_attention": true,
+        "waiting_on": "customer",
+        "urgency_score": 0.78,
+        "confidence": null
+      },
+      "narrative": {
+        "relationship_summary": "Jason Lee engaged in July, had a call about reducing front desk workload, and mentioned opening a second location in October. We sent a demo scheduling link on 22 July but he never booked, and no follow-up has been sent since. The opportunity is going quiet just as his October opening approaches, which is the natural trigger for buying.",
+        "priority_reason": "The demo link sent 22 July was never booked and there has been no contact for six weeks, while Jason's October second-location opening leaves a narrow window to get him live.",
+        "next_action": "Email or call Jason Lee to re-engage, referencing his October second-location opening, and offer two concrete demo time slots this week.",
+        "suggested_follow_up_date": "2026-09-02",
+        "follow_up_rationale": "The account has been silent for six weeks and his October opening is only a month away, so outreach should happen immediately to leave time for a demo and setup.",
+        "open_items": [],
+        "evidence_ids": [
+          "int_011",
+          "int_012",
+          "int_013"
+        ]
+      },
+      "signals": {
+        "days_since_last_interaction": 27,
+        "last_interaction_type": "note",
+        "last_interaction_date": "2026-08-05",
+        "last_interaction_contact": "Jason Lee",
+        "days_since_first_interaction": 45,
+        "interaction_count": 4,
+        "counts_by_type": {
+          "email": 2,
+          "call": 1,
+          "note": 1
+        },
+        "hints": [
+          "The customer never scheduled something we sent."
+        ]
+      },
+      "latency_ms": 7893
+    },
+    "cust_004": {
+      "judgment": {
+        "priority": "low",
+        "needs_attention": false,
+        "waiting_on": "nobody",
+        "urgency_score": 0.15,
+        "confidence": null
+      },
+      "narrative": {
+        "relationship_summary": "Oak & Pine Family Dental raised a call-latency issue in May, which was addressed by a product update; Megan Brooks confirmed on 2 June that things seemed better. An internal note recorded that no further follow-up is needed unless the issue returns. Nothing is outstanding on either side, but there has been no contact for about three months.",
+        "priority_reason": "The reported latency issue was resolved and a note states no follow-up is required, though the account has been quiet for 91 days.",
+        "next_action": "Send Megan Brooks a short check-in email to confirm call quality has held up and see if anything new has come up.",
+        "suggested_follow_up_date": "2026-09-15",
+        "follow_up_rationale": "The issue is closed and no one is waiting, but after three months of silence a light touch-base in the next couple of weeks keeps the account warm.",
+        "open_items": [],
+        "evidence_ids": [
+          "int_016",
+          "int_017"
+        ]
+      },
+      "signals": {
+        "days_since_last_interaction": 91,
+        "last_interaction_type": "note",
+        "last_interaction_date": "2026-06-02",
+        "last_interaction_contact": "Megan Brooks",
+        "days_since_first_interaction": 110,
+        "interaction_count": 4,
+        "counts_by_type": {
+          "email": 2,
+          "call": 1,
+          "note": 1
+        },
+        "hints": [
+          "A note says no follow-up is required."
+        ]
+      },
+      "latency_ms": 5353
+    },
+    "cust_005": {
+      "judgment": {
+        "priority": "high",
+        "needs_attention": true,
+        "waiting_on": "customer",
+        "urgency_score": 0.7,
+        "confidence": null
+      },
+      "narrative": {
+        "relationship_summary": "Rachel Adams at BrightSmile Dental has moved through a full cycle in under a month: Dentrix integration question, discovery call, demo, and a Dentrix-using customer reference plus case study sent on 13 August. On 25 August she confirmed she had what she needed and said she expects to decide in September. Her main open concern from the demo was disruption to existing front-desk workflows, since she already has two receptionists and mainly struggles at lunch and peak hours. The decision window is now open and nothing is outstanding on our side.",
+        "priority_reason": "Rachel said she would decide in September, which began today, so the deal is in its decision window.",
+        "next_action": "Email Rachel Adams to check in on her September decision and offer a short call to walk through how the assistant fits around her two receptionists at lunch and peak hours.",
+        "suggested_follow_up_date": "2026-09-03",
+        "follow_up_rationale": "September has started and she committed to deciding this month, so a check-in within the first few days keeps us present without crowding her.",
+        "open_items": [],
+        "evidence_ids": [
+          "int_023",
+          "int_022",
+          "int_020"
+        ]
+      },
+      "signals": {
+        "days_since_last_interaction": 7,
+        "last_interaction_type": "email",
+        "last_interaction_date": "2026-08-25",
+        "last_interaction_contact": "Rachel Adams",
+        "days_since_first_interaction": 27,
+        "interaction_count": 6,
+        "counts_by_type": {
+          "email": 4,
+          "call": 1,
+          "meeting": 1
+        },
+        "hints": [
+          "The customer stated a decision timeframe.",
+          "The customer asked us for something."
+        ]
+      },
+      "latency_ms": 6505
+    },
+    "cust_006": {
+      "judgment": {
+        "priority": "medium",
+        "needs_attention": false,
+        "waiting_on": "nobody",
+        "urgency_score": 0.3,
+        "confidence": null
+      },
+      "narrative": {
+        "relationship_summary": "Sunrise Pediatric Dentistry has been a customer since January and is growing: Olivia Turner reported higher call volume after adding a provider in April, and we sent instructions for adding another scheduling provider. On 28 August she mentioned they are considering opening a second office next year and may need a second account. Nothing is outstanding on either side right now, but there is a clear future expansion opportunity worth tracking.",
+        "priority_reason": "Olivia flagged a possible second office and second account next year, an expansion opportunity that needs tracking but is not yet time-sensitive.",
+        "next_action": "Schedule a check-in with Olivia Turner to confirm the added provider is working well and learn the timeline and requirements for the planned second office.",
+        "suggested_follow_up_date": "2026-09-29",
+        "follow_up_rationale": "A month after the August call gives a natural check-in point to review how the expanded provider setup is running and start scoping the second-office plans well ahead of next year.",
+        "open_items": [],
+        "evidence_ids": [
+          "int_026",
+          "int_024"
+        ]
+      },
+      "signals": {
+        "days_since_last_interaction": 4,
+        "last_interaction_type": "call",
+        "last_interaction_date": "2026-08-28",
+        "last_interaction_contact": "Olivia Turner",
+        "days_since_first_interaction": 145,
+        "interaction_count": 3,
+        "counts_by_type": {
+          "meeting": 1,
+          "email": 1,
+          "call": 1
+        },
+        "hints": []
+      },
+      "latency_ms": 8143
+    },
+    "cust_007": {
+      "judgment": {
+        "priority": "medium",
+        "needs_attention": true,
+        "waiting_on": "customer",
+        "urgency_score": 0.45,
+        "confidence": null
+      },
+      "narrative": {
+        "relationship_summary": "Michael Grant showed genuine interest after hearing sample call recordings and asked for pricing, which was sent on 28 June. He has not replied since, and an internal note on 1 August confirmed the prospect had gone quiet. The deal is stalled rather than lost: the last real engagement was positive, but roughly two months have passed with no response. A direct re-engagement attempt is warranted before writing the account off.",
+        "priority_reason": "Michael went silent after receiving pricing on 28 June and has not responded in over two months.",
+        "next_action": "Email Michael Grant a short re-engagement note referencing the pricing sent in June and ask directly whether AI answering is still on his agenda this year.",
+        "suggested_follow_up_date": "2026-09-03",
+        "follow_up_rationale": "The account has been dormant for two months, so a prompt, low-pressure re-engagement attempt this week is appropriate before the lead cools further.",
+        "open_items": [],
+        "evidence_ids": [
+          "int_030",
+          "int_031"
+        ]
+      },
+      "signals": {
+        "days_since_last_interaction": 31,
+        "last_interaction_type": "note",
+        "last_interaction_date": "2026-08-01",
+        "last_interaction_contact": "Michael Grant",
+        "days_since_first_interaction": 70,
+        "interaction_count": 5,
+        "counts_by_type": {
+          "call": 1,
+          "email": 3,
+          "note": 1
+        },
+        "hints": [
+          "A note records no response from the customer.",
+          "A note says the prospect has been inactive."
+        ]
+      },
+      "latency_ms": 6254
+    },
+    "cust_008": {
+      "judgment": {
+        "priority": "low",
+        "needs_attention": false,
+        "waiting_on": "nobody",
+        "urgency_score": 0.2,
+        "confidence": null
+      },
+      "narrative": {
+        "relationship_summary": "Maple Grove Orthodontics is an active customer that recently enabled Spanish-language support after Natalie Young raised it in July, since roughly 20% of their patients prefer Spanish. She confirmed on 20 July that the configuration was live and early feedback was positive, which closed out the request. There has been no contact in the 43 days since, and no open questions are outstanding.",
+        "priority_reason": "The Spanish-language request was resolved with positive feedback and nothing is pending on either side.",
+        "next_action": "Email Natalie Young to check how Spanish call handling has performed over the past two months and whether the team needs any tuning.",
+        "suggested_follow_up_date": "2026-09-15",
+        "follow_up_rationale": "Roughly two months after the Spanish rollout is a sensible point for a light check-in on results, without crowding a customer who has no open asks.",
+        "open_items": [],
+        "evidence_ids": [
+          "int_035",
+          "int_034"
+        ]
+      },
+      "signals": {
+        "days_since_last_interaction": 43,
+        "last_interaction_type": "email",
+        "last_interaction_date": "2026-07-20",
+        "last_interaction_contact": "Natalie Young",
+        "days_since_first_interaction": 56,
+        "interaction_count": 4,
+        "counts_by_type": {
+          "email": 3,
+          "call": 1
+        },
+        "hints": []
+      },
+      "latency_ms": 6219
+    },
+    "cust_009": {
+      "judgment": {
+        "priority": "high",
+        "needs_attention": true,
+        "waiting_on": "us",
+        "urgency_score": 0.9,
+        "confidence": null
+      },
+      "narrative": {
+        "relationship_summary": "Chris Evans requested a demo on his own initiative, saw it on August 19, and called the pricing reasonable the next day. He asked a direct question on August 20 about whether onboarding can be completed before September 15, and that question has gone unanswered for 12 days. This is a high-intent prospect with a near deadline, and the delay is now the main risk to the deal.",
+        "priority_reason": "Chris asked on August 20 whether onboarding can finish before September 15 and has had no reply for 12 days, with the deadline now two weeks away.",
+        "next_action": "Email Chris Evans today with a confirmed onboarding timeline showing whether go-live before September 15 is possible, and propose a start date.",
+        "suggested_follow_up_date": "2026-09-01",
+        "follow_up_rationale": "His September 15 deadline is only two weeks out and his question is already 12 days old, so the answer cannot wait another day.",
+        "open_items": [
+          "Confirm whether onboarding can be completed before September 15"
+        ],
+        "evidence_ids": [
+          "int_039",
+          "int_040"
+        ]
+      },
+      "signals": {
+        "days_since_last_interaction": 12,
+        "last_interaction_type": "note",
+        "last_interaction_date": "2026-08-20",
+        "last_interaction_contact": "Chris Evans",
+        "days_since_first_interaction": 15,
+        "interaction_count": 5,
+        "counts_by_type": {
+          "email": 3,
+          "meeting": 1,
+          "note": 1
+        },
+        "hints": [
+          "A note flags this as a high-intent prospect.",
+          "The customer mentioned a deadline."
+        ]
+      },
+      "latency_ms": 5923
+    },
+    "cust_010": {
+      "judgment": {
+        "priority": "medium",
+        "needs_attention": true,
+        "waiting_on": "nobody",
+        "urgency_score": 0.5,
+        "confidence": null
+      },
+      "narrative": {
+        "relationship_summary": "Willow Creek Dental has been a customer since 30 September 2025 and reported in March that the system noticeably reduced missed calls. Amanda Foster asked about including call analytics in a monthly report, and we shared the current reporting options on 1 April 2026. There has been no contact since then, a gap of about five months, and the one-year anniversary of the relationship falls at the end of September. The account looks healthy but is unattended, and we never learned whether the reporting options met Amanda's need.",
+        "priority_reason": "A satisfied customer has gone 153 days without contact just as the first-year anniversary at the end of September approaches.",
+        "next_action": "Email Amanda Foster to check in on how the system is performing, confirm whether the reporting options we shared in April met her analytics need, and set a time to review the first year.",
+        "suggested_follow_up_date": "2026-09-08",
+        "follow_up_rationale": "Reaching out in the first week of September gives time for a conversation and any account review before the 30 September one-year mark.",
+        "open_items": [],
+        "evidence_ids": [
+          "int_042",
+          "int_043",
+          "int_044"
+        ]
+      },
+      "signals": {
+        "days_since_last_interaction": 153,
+        "last_interaction_type": "note",
+        "last_interaction_date": "2026-04-01",
+        "last_interaction_contact": "Amanda Foster",
+        "days_since_first_interaction": 169,
+        "interaction_count": 4,
+        "counts_by_type": {
+          "call": 1,
+          "email": 2,
+          "note": 1
+        },
+        "hints": []
+      },
+      "latency_ms": 10831
+    },
+    "cust_011": {
+      "judgment": {
+        "priority": "medium",
+        "needs_attention": false,
+        "waiting_on": "customer",
+        "urgency_score": 0.4,
+        "confidence": null
+      },
+      "narrative": {
+        "relationship_summary": "Evergreen Dental Partners is an active five-location prospect: Laura Stone saw a demo and liked the centralized reporting, and enterprise pricing went to owner Brian Chen on 10 July. On 14 August Laura confirmed Brian is still interested but budgeting is delayed until their September planning meeting, and she asked us not to push before then. Nothing is outstanding on our side; the decision sits with Brian after that meeting.",
+        "priority_reason": "The deal is paused on the customer's own September planning meeting, so timing matters but we were explicitly asked not to push before it.",
+        "next_action": "Send Laura Stone a short, low-pressure note in mid-September to confirm the planning meeting happened and whether budget for the five locations was approved.",
+        "suggested_follow_up_date": "2026-09-15",
+        "follow_up_rationale": "Respects Laura's request not to push before the September planning meeting while checking in early enough to keep the enterprise pricing decision moving.",
+        "open_items": [],
+        "evidence_ids": [
+          "int_049",
+          "int_050",
+          "int_048"
+        ]
+      },
+      "signals": {
+        "days_since_last_interaction": 18,
+        "last_interaction_type": "note",
+        "last_interaction_date": "2026-08-14",
+        "last_interaction_contact": "Laura Stone",
+        "days_since_first_interaction": 61,
+        "interaction_count": 6,
+        "counts_by_type": {
+          "email": 2,
+          "call": 2,
+          "meeting": 1,
+          "note": 1
+        },
+        "hints": [
+          "A note asks not to push the customer before a stated time.",
+          "The customer mentioned a deadline."
+        ]
+      },
+      "latency_ms": 8090
+    },
+    "cust_012": {
+      "judgment": {
+        "priority": "high",
+        "needs_attention": true,
+        "waiting_on": "us",
+        "urgency_score": 0.85,
+        "confidence": null
+      },
+      "narrative": {
+        "relationship_summary": "Central Avenue Dentistry moved quickly from an inbound pricing request on 24 August to a demo with Kevin Patel and Julia Morris on 27 August, after which contract details were sent. On 31 August Julia asked for a short follow-up this week to discuss implementation, which signals real buying intent. That request has not yet been answered, so the customer is waiting on us. Nothing suggests objections beyond Kevin's earlier questions on contract length and cancellation terms, which were addressed by email.",
+        "priority_reason": "Julia asked on 31 August for a follow-up call this week to discuss implementation and we have not yet replied.",
+        "next_action": "Email Julia Morris today with two or three specific time slots this week for the implementation follow-up and invite Kevin Patel.",
+        "suggested_follow_up_date": "2026-09-01",
+        "follow_up_rationale": "Julia asked for a meeting within this week, so the scheduling reply should go out immediately to secure a slot while the deal has momentum.",
+        "open_items": [
+          "Schedule a short follow-up call this week to discuss implementation (Julia)",
+          "Confirm Kevin is satisfied with the contract length and cancellation terms sent on 27 August"
+        ],
+        "evidence_ids": [
+          "int_056",
+          "int_055",
+          "int_054"
+        ]
+      },
+      "signals": {
+        "days_since_last_interaction": 1,
+        "last_interaction_type": "email",
+        "last_interaction_date": "2026-08-31",
+        "last_interaction_contact": "Julia Morris",
+        "days_since_first_interaction": 8,
+        "interaction_count": 6,
+        "counts_by_type": {
+          "email": 4,
+          "call": 1,
+          "meeting": 1
+        },
+        "hints": [
+          "The customer asked us for something."
+        ]
+      },
+      "latency_ms": 6892
+    }
+  }
+}
