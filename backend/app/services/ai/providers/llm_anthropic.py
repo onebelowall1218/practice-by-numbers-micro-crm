@@ -5,7 +5,7 @@ import anthropic
 from app.services.ai.generation import AIProviderError
 from app.services.ai.providers.llm_base import LanguageModelProvider
 
-DEFAULT_MODEL = "claude-opus-5"
+DEFAULT_MODEL = "claude-sonnet-5"
 
 
 class AnthropicProvider(LanguageModelProvider):
