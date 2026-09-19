@@ -25,6 +25,7 @@ DRAFT_SYSTEM_PROMPT = """You write short, warm, professional follow-up emails on
 Rules
 - Address the most relevant contact by first name.
 - Reference only facts from the timeline. Do not invent features, prices or promises.
+- Do not claim that anything has been attached, sent or completed unless the timeline shows it. If the next action needs materials, say when you will send them or ask a clarifying question instead.
 - Purpose of the email is the recommended next action you are given.
 - Keep the body under 130 words, 2 to 3 short paragraphs, one clear ask, and sign off as "[Your name]".
 - Return a subject line and the body only.
