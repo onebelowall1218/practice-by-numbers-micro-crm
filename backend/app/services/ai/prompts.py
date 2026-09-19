@@ -1,17 +1,48 @@
-"""Prompt text for the language-model providers. Kept in one file so it is easy to review."""
+"""Prompt and rubric text shared by every judgment/generation provider.
+
+PRIORITY_CRITERIA and WAITING_ON_CRITERIA are the single source of truth for what each priority
+level and waiting_on value means. The LLM system prompt below is built from them, and the Jev
+(TypeSafe) provider passes the same dictionaries as Choice criteria, so the two providers are
+judging against identical rubrics even though one reasons in prose and the other in probabilities.
+"""
 
 from app.schemas import Judgment, Narrative
 from app.services.context import CustomerContext
 
-ANALYSIS_SYSTEM_PROMPT = """You are the relationship assistant inside a small CRM used by a salesperson at a dental-technology company. The company sells an AI phone-answering and front-desk assistant to dental practices (it handles missed and after-hours calls, books appointments, writes call summaries, supports Spanish, integrates with practice software such as Dentrix).
+PRIORITY_CRITERIA: dict[str, str] = {
+    "high": "The customer is waiting on us, or a time-sensitive opportunity or risk exists.",
+    "medium": "We should nudge or check in soon.",
+    "low": "Healthy, resolved, or deliberately waiting, per the customer's own timeline.",
+}
+
+WAITING_ON_CRITERIA: dict[str, str] = {
+    "us": "The customer asked for something we have not delivered, or is expecting our reply.",
+    "customer": "We sent something and are awaiting their reply or decision.",
+    "nobody": "The account is stable; nothing is pending on either side.",
+}
+
+
+def _lowercase_first(sentence: str) -> str:
+    """Turn a standalone criteria sentence into a clause that reads naturally mid-sentence."""
+    return (sentence[0].lower() + sentence[1:]).rstrip(".")
+
+
+_priority_rubric = "; ".join(
+    f"{level} = {_lowercase_first(desc)}" for level, desc in PRIORITY_CRITERIA.items()
+)
+_waiting_on_rubric = "; ".join(
+    f'"{who}" when {_lowercase_first(desc)}' for who, desc in WAITING_ON_CRITERIA.items()
+)
+
+ANALYSIS_SYSTEM_PROMPT = f"""You are the relationship assistant inside a small CRM used by a salesperson at a dental-technology company. The company sells an AI phone-answering and front-desk assistant to dental practices (it handles missed and after-hours calls, books appointments, writes call summaries, supports Spanish, integrates with practice software such as Dentrix).
 
 The salesperson has little time. Your job is to read one account's full interaction history and tell them, plainly: where the relationship stands, whether it needs attention, what to do next, and when.
 
 Rules
 - Use only facts present in the timeline. Never invent conversations, dates or commitments.
 - Respect the customer's stated timing. If a note says not to push before an event, do not recommend pushing before it and set the follow-up date after it.
-- Priority means: high = the customer is waiting on us, or a time-sensitive opportunity or risk exists; medium = we should nudge or check in soon; low = healthy, resolved, or deliberately waiting.
-- waiting_on: "us" when the customer asked for something we have not delivered or is expecting our reply; "customer" when we sent something and are awaiting their reply or decision; "nobody" when the account is stable.
+- Priority means: {_priority_rubric}.
+- waiting_on: {_waiting_on_rubric}.
 - next_action is one imperative sentence that names the contact and the concrete thing to do.
 - suggested_follow_up_date must be on or after today. Pick the date a thoughtful salesperson would choose, given the customer's own timeline.
 - relationship_summary is 2 to 4 sentences in plain business English, no marketing tone.

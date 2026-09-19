@@ -77,7 +77,7 @@ FastAPI + SQLAlchemy + Pydantic  ── SQLite       (backend/app/)
               judgment.py            typed decisions: priority, waiting_on, urgency
               generation.py          words: summary, next action, date, email draft
               analyzer.py            judgment → generation → guardrails → save
-              providers/             anthropic, openai, rules (fallback), jev (stub)
+              providers/             anthropic, openai, rules (fallback), jev (typed judgment)
 ```
 
 The flow when the user adds an interaction:
@@ -98,9 +98,9 @@ read.
 
 Full reasoning, with alternatives, in [docs/DECISIONS.md](docs/DECISIONS.md). The short version:
 
-- **Judgment and generation are separate protocols** so a typed-judgment model (TypeSafe's Jev)
-  can own priority later without touching UI, API or storage. Today one Claude call implements
-  both, so the split costs nothing.
+- **Judgment and generation are separate protocols**, and it's not just theoretical: TypeSafe's
+  Jev (a typed-judgment model) actually implements the judgment side today, optionally, behind
+  `JUDGMENT_PROVIDER=jev`, while an LLM keeps writing the summary and next action. Off by default.
 - **Structured outputs with a plain model-facing schema** and strict domain models behind it.
 - **Deterministic signals** are computed in code, fed to the model, and reused as guardrails.
 - **Committed seed analyses** make first load instant and free, and freeze a baseline for the eval.
@@ -119,6 +119,11 @@ with `claude-opus-5`: **12 of 12 pass**; average latency about 7 seconds per acc
 the two expectations I changed after reading the model's reasoning are in
 [docs/AI_DESIGN.md](docs/AI_DESIGN.md) and [docs/eval_results.md](docs/eval_results.md).
 
+`scripts/compare_judgment.py` separately checks a typed-judgment alternative: with
+`TYPESAFE_API_KEY` set, it runs TypeSafe's Jev and the LLM side by side on the same 12 accounts.
+One real run agreed on priority for 10 of 12 accounts and on waiting_on for 11 of 12 — see
+[docs/AI_DESIGN.md](docs/AI_DESIGN.md) for the two disagreements and what they suggest.
+
 ## Assumptions and simplifications
 
 - **Who the user is.** The notes describe selling an AI phone-answering assistant to dental
@@ -132,6 +137,8 @@ the two expectations I changed after reading the model's reasoning are in
 - **A new interaction resets the follow-up schedule.** New information supersedes an old plan; the
   user can adjust again afterwards.
 - **Drafts are copied, not sent.** No mail integration.
+- **Customers and contacts are fixed seed data.** No add/edit UI for either; the assignment's
+  dataset is the exercise. A production version would add both as simple CRUD screens.
 - **The CSVs were extracted from a PDF** and contain line breaks inside quoted notes; the importer
   normalises whitespace.
 - **OpenAI default model** is `gpt-4.1`; override with `LLM_MODEL` if your account uses a
@@ -146,9 +153,9 @@ the two expectations I changed after reading the model's reasoning are in
    the Overdue and Due-this-week buckets.
 3. **Feedback loop.** Record when users accept, change or ignore suggested dates and actions, and
    use it to tune prompts and the eval set.
-4. **Jev for judgments.** Implement `providers/jev_typesafe.py`, compare its priority calls and
-   confidence against the language model on the eval set, route low-confidence accounts to the
-   LLM.
+4. **Escalate on low Jev confidence.** Jev is wired up and its agreement rate against the LLM is
+   measured (`scripts/compare_judgment.py`); the natural next step is routing low-confidence Jev
+   judgments to the LLM for a second opinion instead of trusting either one blindly.
 5. **Multi-user and Postgres.** Auth, `owner_id` scoping, `DATABASE_URL` switch, Alembic
    migrations.
 6. **Analysis history in the UI.** The table already keeps every run; show how the AI's read
@@ -163,7 +170,7 @@ README.md                    this file
 ***REMOVED_LINE***
 docs/
   DECISIONS.md               product and technical decisions with alternatives
-  AI_DESIGN.md               prompt, schema, guardrails, eval, extending with Jev
+  AI_DESIGN.md               prompt, schema, guardrails, eval, the Jev judgment provider
   CODE_TOUR.md               one line per source file
 ***REMOVED_LINE***
 ***REMOVED_LINE***

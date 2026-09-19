@@ -73,8 +73,15 @@ first and hands the result to generation.
 **Why.** Typed decisions and prose have different quality bars, different evaluation methods, and
 potentially different models. A "System One" model such as TypeSafe's Jev returns typed judgments
 with calibrated probabilities and could own the judgment layer without touching the UI, API, or
-storage. Today both protocols are implemented by the same language model in one round trip, so
-the split costs nothing in latency.
+storage. Both protocols are implemented by the same language model in one round trip by default,
+so the split costs nothing in latency when unused.
+
+**This is not hypothetical.** `providers/jev_typesafe.py` implements `JudgmentProvider` against
+the real TypeSafe SDK; set `JUDGMENT_PROVIDER=jev` and `TYPESAFE_API_KEY` and priority/waiting_on/
+urgency come from Jev while the LLM still writes the summary, next action and draft — no other
+file changes. `scripts/compare_judgment.py` runs both on the 12 seed accounts; one real run
+against `claude-opus-5` agreed on priority for 10/12 accounts and waiting_on for 11/12 (details in
+`docs/AI_DESIGN.md`). It is off by default so the app still runs with zero keys.
 
 ### 8. Deterministic signals feed the model and guard its output
 

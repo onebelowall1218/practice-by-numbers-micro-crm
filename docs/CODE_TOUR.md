@@ -33,13 +33,14 @@ One line per file: what it does and when you would touch it. Read this before op
 | `app/services/ai/providers/llm_anthropic.py` | Anthropic `messages.parse` call | Anthropic-specific settings |
 | `app/services/ai/providers/llm_openai.py` | OpenAI `chat.completions.parse` call | OpenAI-specific settings |
 | `app/services/ai/providers/rules.py` | Deterministic fallback provider | Changing fallback behaviour |
-| `app/services/ai/providers/jev_typesafe.py` | Documented stub for a TypeSafe/Jev judgment provider | Integrating Jev |
+| `app/services/ai/providers/jev_typesafe.py` | Real TypeSafe/Jev judgment provider (priority, waiting_on, needs_attention, urgency, confidence) | Tuning Jev's questions |
 | `data/customers.csv`, `contacts.csv`, `interactions.csv` | Sample data from the assignment | Never |
 | `data/seed_analyses.json` | Committed Claude analyses for the 12 accounts | Run `make seed-ai` to regenerate |
 | `scripts/__init__.py` | Sets safe env defaults before any script runs | Never |
 | `scripts/common.py` | In-memory sample database for scripts | Never |
 | `scripts/generate_seed_analyses.py` | Regenerates `seed_analyses.json` with the configured provider | After prompt changes |
 | `scripts/eval.py` | Checks analyses against expectations, writes `docs/eval_results.md` | Adding an expectation |
+| `scripts/compare_judgment.py` | Runs Jev and the LLM side by side on the 12 seed accounts, prints agreement | After changing either provider's rubric |
 | `tests/conftest.py` | Rules provider, demo date, temp database, test client | Never |
 | `tests/test_signals.py` | Signal maths and hint detection | Changing signals |
 | `tests/test_dashboard_rules.py` | Bucketing and sorting | Changing ranking |

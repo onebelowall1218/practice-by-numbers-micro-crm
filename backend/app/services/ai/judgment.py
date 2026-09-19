@@ -1,8 +1,9 @@
 """Judgment protocol: typed decisions about a customer (priority, attention, urgency).
 
 Kept separate from text generation on purpose. A System One model such as TypeSafe's Jev
-returns exactly this kind of typed answer, so it can implement this protocol later without
-touching the rest of the app. See docs/AI_DESIGN.md, section "Extending with Jev".
+returns exactly this kind of typed answer, which is why `providers/jev_typesafe.py` implements
+this protocol and nothing else. See docs/AI_DESIGN.md, "Jev (TypeSafe System One) as an
+optional judgment provider".
 """
 
 from typing import Protocol

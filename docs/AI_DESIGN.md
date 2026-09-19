@@ -33,7 +33,7 @@ CustomerContext + Judgment ──> GenerationProvider.narrate() ──> Narrativ
 
 Why split them if one call does both today? Because typed decisions and prose have different
 quality bars and evaluation methods, and because a dedicated judgment model can slot in later
-(see "Extending with Jev").
+(see "Jev (TypeSafe System One) as an optional judgment provider" below).
 
 ## What the model sees
 
@@ -148,29 +148,82 @@ account, roughly 2,500 input tokens and 400 output tokens per analysis.
 
 Set `LLM_MODEL=claude-sonnet-5` for a cheaper, faster option with the same schema.
 
-## Extending with Jev (TypeSafe System One)
+## Jev (TypeSafe System One) as an optional judgment provider
 
-Jev answers narrow typed questions with calibrated probabilities instead of writing prose. That is
-the `JudgmentProvider` contract. The stub in `providers/jev_typesafe.py` documents the mapping:
+Jev answers narrow typed questions with calibrated probabilities instead of writing prose. That
+is exactly the `JudgmentProvider` contract, so `providers/jev_typesafe.py` implements it for
+real: judgment can come from Jev while generation (the summary, next action, draft) stays on the
+language model, unchanged.
+
+### How to turn it on
+
+Set two environment variables (see `.env.example`):
+
+```
+TYPESAFE_API_KEY=...
+JUDGMENT_PROVIDER=jev
+```
+
+`LLM_PROVIDER` is untouched — it still picks the generation provider (anthropic/openai/rules) the
+same way it always did. Nothing else changes: `/api/health` reports `judgment_provider: "jev"`,
+and each analysis's provenance line shows which provider actually judged it.
+
+This is opt-in, not the default, so the app still runs with zero keys and the committed
+`data/seed_analyses.json` (generated with the LLM judging itself) stays valid — `make eval`
+passes without a TypeSafe key.
+
+### The mapping onto `Judgment`
 
 | Judgment field | TypeSafe primitive | Question |
 | --- | --- | --- |
-| `priority` | Choice (high, medium, low) | "Given this account's timeline, how urgently should the salesperson act?" |
-| `waiting_on` | Choice (us, customer, nobody) | "Who owes the next move?" |
-| `needs_attention` | Noul | "Should the salesperson act on this account within 7 days?" |
-| `urgency_score` | Score | Ordered levels from "no urgency" to "act today" |
+| `priority` | Choice (high, medium, low) | "Given this account's interaction history and signals, how urgently should the salesperson act on it?" |
+| `waiting_on` | Choice (us, customer, nobody) | "Who owes the next move in this relationship?" |
+| `needs_attention` | Noul | "Should the salesperson act on this account within the next 7 days?" (true when the probability is ≥ 0.5) |
+| `urgency_score` | Score, 4 ordered levels ("no urgency" → "act today") | Normalised from the returned position (0..3) into 0..1 |
+| `confidence` | — | The `priority` Choice's own `.confidence` |
 
-The state Jev receives is the same `CustomerContext` JSON shown above; TypeSafe recommends
-named-field state, which is why the context is a Pydantic model rather than a prose blob.
+The `priority` and `waiting_on` Choice criteria are not hand-duplicated: both the language model's
+system prompt and Jev's criteria are built from the same two dictionaries,
+`PRIORITY_CRITERIA` and `WAITING_ON_CRITERIA` in `prompts.py`, so the two providers are judging
+against one rubric, not two that can drift apart.
 
-Steps to wire it in:
+Jev receives the same `CustomerContext` JSON the language model gets (`context.model_dump(mode="json")`
+as the `state` argument to `client.system_one(...)`) — TypeSafe recommends named-field state, which
+is exactly why `CustomerContext` is a Pydantic model rather than a prose blob.
 
-1. Implement `JevJudgmentProvider.judge()` using the TypeSafe SDK; fill `Judgment.confidence` from
-   the returned probabilities.
-2. Add `"jev"` to `ProviderName` in `config.py` and a branch in `factory.build_provider`.
-3. Set `JUDGMENT_PROVIDER=jev`. Generation stays on the language model, which receives the
-   judgment and explains it (`prompts.judgment_hint`).
-4. Optional: in `analyzer.run_analysis`, route accounts with low `confidence` to the language
-   model's own judgment as a second opinion (TypeSafe's "verify and escalate" pattern).
+### What I confirmed against the real SDK (not assumed)
 
-Nothing in the API, storage or UI changes.
+- Package: `typesafe-sdk`. Client: `typesafe_sdk.TypeSafeClient(api_key=...)`. One call answers a
+  batch of questions: `client.system_one(state=..., questions={...})`, returning a
+  `SystemOneResponse` with `.choices["name"]`, `.nouls["name"]`, `.scores["name"]` accessors.
+- `Choice(instructions=..., criteria={...})` — criteria values are short description strings.
+  `Noul(instructions=...)` — no criteria, returns a 0..1 probability. `Score(instructions=...,
+  criteria=[...ordered levels...])` — returns a probability-weighted position across the list.
+- Errors (`TypeSafeError` and its subclasses, e.g. `TypeSafeAuthenticationError`,
+  `TypeSafeRateLimitError`) are wrapped into the same `AIProviderError` every other provider
+  raises, so `analyzer.run_analysis`'s existing fallback-to-rules path covers Jev with no changes
+  to `analyzer.py`.
+
+### Comparing Jev against the LLM
+
+`scripts/compare_judgment.py` runs both providers on the same 12 seed accounts (same
+`CustomerContext`, so it's a fair comparison) and prints where `priority` and `waiting_on` agree.
+One real run against `claude-opus-5`:
+
+```
+Priority agreement:   10/12
+Waiting-on agreement: 11/12
+```
+
+(Re-running the script will not reproduce this exact table — the LLM side is not perfectly
+deterministic between separate calls, so a given account can shift by one priority level run to
+run; Jev's answers are far more stable since they're calibrated probabilities, not generated text.)
+
+The recurring disagreement is Northstar Dental Group and Greenfield Pediatrics: Jev tends to call
+these "medium" where the LLM says "high," with `waiting_on` still agreeing on "us" in both cases —
+a real difference of judgment on how much a same-week unanswered question should raise priority,
+not an error on either side. This kind of run is the natural first step toward the
+"verify and escalate" pattern: route low-`confidence` Jev calls (see Maple Grove Orthodontics at
+0.38 above) to the language model for a second opinion instead of trusting either provider blindly.
+That escalation logic is not built — the comparison script is the evidence for whether it would be
+worth building, which is the honest way to justify adding it later rather than assuming it helps.

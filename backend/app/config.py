@@ -9,7 +9,11 @@ from typing import Literal
 
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
-ProviderName = Literal["anthropic", "openai", "rules"]
+# Providers that can do BOTH judgment and generation (an LLM_PROVIDER value).
+GenerationProviderName = Literal["anthropic", "openai", "rules"]
+# Anything that can own the judgment step. Includes "jev", which only judges — it has no
+# generation, so it can never be an LLM_PROVIDER value, only a JUDGMENT_PROVIDER override.
+JudgmentProviderName = GenerationProviderName | Literal["jev"]
 
 
 class Settings(BaseSettings):
@@ -18,12 +22,14 @@ class Settings(BaseSettings):
     database_url: str = "sqlite:///./crm.db"
 
     # "auto" picks anthropic or openai based on which API key is present, else rules.
-    llm_provider: ProviderName | Literal["auto"] = "auto"
-    # Optional override so a different provider can own typed judgments (e.g. Jev later).
-    judgment_provider: ProviderName | None = None
+    llm_provider: GenerationProviderName | Literal["auto"] = "auto"
+    # Optional override so a different provider can own typed judgments. Set to "jev" to use
+    # TypeSafe's Jev for priority/waiting_on/urgency while the LLM still writes the narrative.
+    judgment_provider: JudgmentProviderName | None = None
     llm_model: str | None = None
     anthropic_api_key: str | None = None
     openai_api_key: str | None = None
+    typesafe_api_key: str | None = None
 
     # Pins "today" for demos so staleness math matches the sample data (last note: 2026-08-31).
     crm_today: date | None = None
