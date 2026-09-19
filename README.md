@@ -9,8 +9,8 @@ statement links back to the raw notes it came from.
 
 ![Dashboard](docs/screenshots/dashboard.png)
 
-Built for the Practice by Numbers take-home assignment. Time spent: about six hours, using Claude
-Code as a pair programmer.
+Built for the Practice by Numbers take-home assignment. Time spent: about six hours, with AI
+coding tools as a pair programmer.
 
 ## Run it in 60 seconds
 
