@@ -124,6 +124,11 @@ the two expectations I changed after reading the model's reasoning are in
 One real run agreed on priority for 10 of 12 accounts and on waiting_on for 11 of 12 — see
 [docs/AI_DESIGN.md](docs/AI_DESIGN.md) for the two disagreements and what they suggest.
 
+`scripts/benchmark_judgment.py` separately measures speed and cost for judgment alone: one real
+run had Jev averaging 484 ms per judgment against `claude-sonnet-5`'s 2,081 ms ($0.00357 each,
+no comparable Jev price is published). Details in
+[docs/judgment_benchmark.md](docs/judgment_benchmark.md).
+
 ## Assumptions and simplifications
 
 - **Who the user is.** The notes describe selling an AI phone-answering assistant to dental

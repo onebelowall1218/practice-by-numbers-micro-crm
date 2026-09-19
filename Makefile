@@ -1,6 +1,6 @@
 # Common tasks. Run from the repository root.
 
-.PHONY: install dev backend frontend test lint eval seed-ai compare-judgment build docker
+.PHONY: install dev backend frontend test lint eval seed-ai compare-judgment benchmark-judgment build docker
 
 install:            ## Install backend and frontend dependencies
 	cd backend && uv sync
@@ -30,6 +30,9 @@ seed-ai:            ## Regenerate data/seed_analyses.json with the configured pr
 
 compare-judgment:    ## Compare Jev vs the LLM on the 12 seed accounts (needs TYPESAFE_API_KEY)
 	cd backend && uv run python -m scripts.compare_judgment
+
+benchmark-judgment:  ## Measure Jev vs Sonnet 5 latency/cost for judgment alone (needs both keys)
+	cd backend && uv run python -m scripts.benchmark_judgment
 
 build:              ## Build the frontend so FastAPI can serve it
 	cd frontend && npm run build

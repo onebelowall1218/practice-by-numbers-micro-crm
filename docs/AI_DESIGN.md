@@ -227,3 +227,32 @@ not an error on either side. This kind of run is the natural first step toward t
 0.38 above) to the language model for a second opinion instead of trusting either provider blindly.
 That escalation logic is not built — the comparison script is the evidence for whether it would be
 worth building, which is the honest way to justify adding it later rather than assuming it helps.
+
+### Latency and cost: Jev vs an LLM, judgment alone
+
+`scripts/benchmark_judgment.py` isolates the judgment step on both sides — Jev's four questions
+versus a *separate*, narrower LLM call that returns only `priority`/`waiting_on`/`needs_attention`/
+`urgency_score` (not the full narrative the app normally asks for in the same request). That makes
+it a fair like-for-like comparison of "get a judgment," not a comparison against the app's actual
+default call, which gets judgment and narrative together for one price. One real run, `claude-sonnet-5`
+against the same 12 seed accounts:
+
+| | Jev | claude-sonnet-5 |
+| --- | --- | --- |
+| Average latency | **484 ms** | **2,081 ms** |
+| Cost per judgment | not published by TypeSafe | **$0.00357** |
+| Total for 12 judgments | — | $0.04287 |
+
+Full per-account numbers in [docs/judgment_benchmark.md](judgment_benchmark.md). Two honest
+caveats:
+
+1. **Jev has no public dollar price as of this writing.** Only token counts and latency are
+   reported for it; a cost line was not invented. If TypeSafe publishes per-token pricing later,
+   `SONNET_5_PRICE_PER_MTOK` in the script has the pattern to extend.
+2. **This is not the cost of enabling Jev in the app.** With `JUDGMENT_PROVIDER` unset (the
+   default), the LLM's judgment is a byproduct of the narrative call it makes anyway — it costs
+   nothing extra. This benchmark answers a narrower, useful question instead: if you needed
+   *only* a judgment and had to choose how to get it, Jev is roughly 4× faster than asking an LLM
+   for the same narrow answer. That's the concrete case for a typed "System One" model over a
+   generative one when generation isn't needed — speed and (once priced) likely cost, not quality;
+   the agreement-rate results above are the evidence on quality.

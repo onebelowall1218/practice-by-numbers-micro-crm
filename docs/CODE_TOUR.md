@@ -41,6 +41,7 @@ One line per file: what it does and when you would touch it. Read this before op
 | `scripts/generate_seed_analyses.py` | Regenerates `seed_analyses.json` with the configured provider | After prompt changes |
 | `scripts/eval.py` | Checks analyses against expectations, writes `docs/eval_results.md` | Adding an expectation |
 | `scripts/compare_judgment.py` | Runs Jev and the LLM side by side on the 12 seed accounts, prints agreement | After changing either provider's rubric |
+| `scripts/benchmark_judgment.py` | Measures Jev vs Sonnet 5 latency/cost for judgment alone, writes `docs/judgment_benchmark.md` | Checking whether Jev is still worth it after a pricing or model change |
 | `tests/conftest.py` | Rules provider, demo date, temp database, test client | Never |
 | `tests/test_signals.py` | Signal maths and hint detection | Changing signals |
 | `tests/test_dashboard_rules.py` | Bucketing and sorting | Changing ranking |
