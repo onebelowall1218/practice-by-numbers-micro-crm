@@ -21,3 +21,13 @@ frontend/dist/
 Thumbs.db
 .vscode/
 .idea/
+
+# Local-only working notes: not for the public repo or the take-home submission.
+# These are kept on disk for the owner's own reference but must never be committed.
+/CLAUDE.md
+/PROJECT_INSTRUCTIONS.md
+/docs/INTERVIEW_QA.md
+/docs/DEMO_SCRIPT.md
+/docs/assignment/start-context.md
+/docs/assignment/typesafe-ai-SKILL.md
+/docs/assignment/Take-Home Assignment_ AI-Powered Micro-CRM.pdf
